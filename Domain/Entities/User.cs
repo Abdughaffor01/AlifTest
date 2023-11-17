@@ -12,5 +12,8 @@ public class User : IdentityUser
     public DateTime CreatedAt { get; set; }
     
     public Wallet Wallet { get; set; }
-    public IEnumerable<Cart> Carts { get; set; }
+
+    public IEnumerable<Card> Cards { get; set; }
+
+    public IEnumerable<Transaction> Transactions { get; set; }
 }

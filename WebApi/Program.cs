@@ -2,9 +2,14 @@ using System.Text;
 using Domain;
 using Domain.Entities;
 using Infrastructure;
-using Infrastructure.Automapper;
+using Infrastructure.AutoMapper;
 using Infrastructure.Data;
 using Infrastructure.Seed;
+using Infrastructure.Services;
+using Infrastructure.Services.CardServices;
+using Infrastructure.Services.Operation;
+using Infrastructure.Services.TransactionServices;
+using Infrastructure.Services.WalletServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +21,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<Seeder>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICardService,CardService>();
+builder.Services.AddScoped<IOperationService, OperationService>();
+builder.Services.AddScoped<ITransactionService,TransacationService>();
+builder.Services.AddScoped<IWalletService,WalletService>();
 
-builder.Services.AddAutoMapper(typeof(ServiceProfile));
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 //connection to database
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -102,8 +111,8 @@ var app = builder.Build();
 try
 {
     var serviceProvider = app.Services.CreateScope().ServiceProvider; 
-    var datacontext = serviceProvider.GetRequiredService<DataContext>();
-    await datacontext.Database.MigrateAsync();
+    var dataContext = serviceProvider.GetRequiredService<DataContext>();
+    await dataContext.Database.MigrateAsync();
     
     //seed data
     var seeder = serviceProvider.GetRequiredService<Seeder>();

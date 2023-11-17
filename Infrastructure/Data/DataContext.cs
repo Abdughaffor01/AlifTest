@@ -9,8 +9,8 @@ public class DataContext :IdentityDbContext<User>
     public DataContext(DbContextOptions<DataContext> options) : base(options) {}
 
     public DbSet<Wallet> Wallets { get; set; }
-    public DbSet<Cart> Carts { get; set; }
-    
+    public DbSet<Card> Cards { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

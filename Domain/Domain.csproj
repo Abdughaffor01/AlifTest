@@ -9,6 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />
+    <Folder Include="DTOs\WalletDTOs\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Identity.Stores">
